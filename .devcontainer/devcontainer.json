@@ -1,0 +1,56 @@
+{
+
+    // ---- General properties ----
+    "name": "Dev - PySpark",
+    "remoteUser": "root",
+    "shutdownAction": "none",
+    // Note: this ensures that the 'CMD' directive expressed in the Dockerfile
+    //      does not get administered (which is desired behaviour for a development environment)
+    "overrideCommand": true,
+
+    // ---- Docker compose properties ----
+    "dockerComposeFile": ["../compose.yml"],
+    "service": "dev",
+    // Note: this must correspond to the volume created in `compose.dev.yml`
+    "workspaceFolder": "/workspace", 
+
+    // ---- Development plugins ----
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                // Essentials
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.flake8",
+                "ms-python.mypy-type-checker",
+                
+                // Documentation and productivity
+                "njpwerner.autodocstring",
+                "kevinrose.vsc-python-indent",
+                
+                // Development tools
+                "eamodio.gitlens",
+                "ms-azuretools.vscode-docker",
+                
+                // Code quality
+                "charliermarsh.ruff",
+                "ms-python.pytest"
+            ],
+            "settings": {
+                // Note: this ensures that the '/frontend' folder is tracker in version control
+                "git.openRepositoryInParentFolders": "always",
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "python.defaultInterpreterPath": "/usr/local/bin/python3", 
+                // Note: unnecessary since this is specified in the Dockerfile already
+                "python.terminal.activateEnvironment": false
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    }
+
+}
