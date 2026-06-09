@@ -57,4 +57,8 @@ RUN pip3 install \
     pyspark==${SPARK_VERSION} \
     pyarrow
 
-CMD ["./provision.sh"]
+COPY provision.sh .
+
+RUN chmod +x provision.sh
+
+ENTRYPOINT ["./provision.sh"]
