@@ -1,12 +1,18 @@
+# ---- 0: User-Defined Parameters ----
+
 ARG PYTHON_VERSION=3.11
-ARG PYTHON_SRC=python:${PYTHON_VERSION}-bullseye
-
-FROM ${PYTHON_SRC} AS spark-base
-
-# ---- 0: General Utilities: Setup ----
-
 ARG JDK_VERSION=17
+ARG SPARK_VERSION=4.1.2
+
+# ---- 1: Computed Parameters ----
+
+ARG PYTHON_SRC=python:${PYTHON_VERSION}-bullseye
 ARG JDK_SRC=openjdk-${JDK_VERSION}-jdk
+ARG SPARK_SRC=https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+
+# ---- 2: Build Tools: Setup ----
+
+FROM ${PYTHON_SRC}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -18,10 +24,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# ---- 1: Apache Spark: Setup ----
-
-ARG SPARK_VERSION=4.1.2
-ARG SPARK_SRC=https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+# ---- 3: Apache Spark: Setup ----
 
 ENV SPARK_HOME=/opt/spark
 ENV HADOOP_HOME=/opt/hadoop
@@ -39,9 +42,9 @@ RUN curl -fSL "${SPARK_SRC}" -o spark-dist.tgz && \
 RUN chmod u+x ./sbin/* && \
     chmod u+x ./bin/*
 
-# ---- 2: Python Packages: Setup ----
+# ---- 4: Python: Setup ----
 
-# NB: we do not need to install `pyspark` as these will be accessed via 
+# NB: we do not need to install `pyspark` as this will be invoked via 
 #     the `spark-submit` binaries stored within ${SPARK_HOME}; however, it is helpful 
 #     to do so for intellisense purposes!
 
