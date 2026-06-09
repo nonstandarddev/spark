@@ -54,4 +54,4 @@ RUN pip3 install \
     pyspark==${SPARK_VERSION} \
     pyarrow
 
-CMD ["/bin/bash"]
+CMD ["./provision.sh"]
