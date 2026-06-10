@@ -1,7 +1,7 @@
 {
 
     // ---- General properties ----
-    "name": "Dev - PySpark",
+    "name": "Apache Spark - Developer (Python)",
     "remoteUser": "root",
     "shutdownAction": "none",
     // Note: this ensures that the 'CMD' directive expressed in the Dockerfile
