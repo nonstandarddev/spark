@@ -10,7 +10,7 @@
 
     // ---- Docker compose properties ----
     "dockerComposeFile": ["../compose.yml"],
-    "service": "dev",
+    "service": "spark-developer",
     // Note: this must correspond to the volume created in `compose.dev.yml`
     "workspaceFolder": "/workspace", 
 

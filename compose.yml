@@ -1,8 +1,49 @@
 services:
 
-  dev:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  spark-master:
+    container_name: spark-master
+    build: .
+    image: spark-image
+    entrypoint: ["./provision.sh", "master"]
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    env_file:
+      - .env.spark
+    volumes:
+      - ./spark_data:/opt/spark/data
+      - ./spark_apps:/opt/spark/apps
+      - spark-logs:/opt/spark/spark-events
+    ports:
+      - 8080 # Frontend
+      - 7077 # Backend
+
+  spark-worker:
+    container_name: spark-worker
+    build: .
+    image: spark-image
+    entrypoint: ["./provision.sh", "worker"]
+    depends_on:
+      - spark-master
+    env_file:
+      - .env.spark
+    volumes:
+      - ./spark_data:/opt/spark/data
+      - ./spark_apps:/opt/spark/apps
+      - spark-logs:/opt/spark/spark-events
+  
+  spark-developer:
+    container_name: spark-developer
+    build: .
+    image: spark-image
+    entrypoint: ["/bin/bash"]
+    depends_on:
+      - spark-master
+      - spark-worker
     volumes:
       - ./:/workspace:cached
+
+volumes:
+  spark-logs:
