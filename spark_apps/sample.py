@@ -1,12 +1,12 @@
 from pyspark import (
-    SparkConf, 
+    SparkConf,
     SparkContext
 )
 import collections
 
 conf = (
     SparkConf()
-    .setAppName("RatingsHistogram")
+    .setAppName("Ratings - Histogram")
 )
 
 sc = SparkContext(conf=conf)

@@ -33,6 +33,22 @@ services:
       - ./spark_data:/opt/spark/data
       - ./spark_apps:/opt/spark/apps
       - spark-logs:/opt/spark/spark-events
+    ports:
+      - "8081:8081"
+
+  spark-history:
+    container_name: spark-history
+    build: .
+    image: spark-image
+    entrypoint: ["./provision.sh", "history"]
+    depends_on:
+      - spark-master
+    env_file:
+      - .env.spark
+    volumes:
+      - spark-logs:/opt/spark/spark-events
+    ports:
+      - "18080:18080"
   
   spark-developer:
     container_name: spark-developer
@@ -49,6 +65,7 @@ services:
       - ./spark_data:/workspace/spark_data:cached
       - ./spark_data:/opt/spark/data
       - ./spark_apps:/opt/spark/apps
+      - spark-logs:/opt/spark/spark-events
 
 volumes:
   spark-logs:

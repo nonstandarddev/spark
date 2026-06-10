@@ -25,20 +25,23 @@ ARG SPARK_VERSION=4.1.2
 ARG SPARK_SRC=https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz
 
 ENV SPARK_HOME=/opt/spark
-ENV HADOOP_HOME=/opt/hadoop
 ENV SPARK_MASTER_HOST=spark-master
 ENV SPARK_MASTER_PORT=7077
 ENV SPARK_MASTER_URL="spark://${SPARK_MASTER_HOST}:${SPARK_MASTER_PORT}"
 ENV PATH=${SPARK_HOME}/sbin:${SPARK_HOME}/bin:${PATH}
 ENV PYSPARK_PYTHON=python3
 
-RUN mkdir -p ${HADOOP_HOME} && mkdir -p ${SPARK_HOME}
+RUN mkdir -p ${SPARK_HOME}
 
 WORKDIR ${SPARK_HOME}
 
 RUN curl -fSL "${SPARK_SRC}" -o spark-dist.tgz && \
     tar xvzf spark-dist.tgz --directory "${SPARK_HOME}" --strip-components 1 && \
     rm -f spark-dist.tgz
+
+COPY config/log4j2.properties ${SPARK_HOME}/conf/log4j2.properties
+
+COPY config/spark-defaults.conf ${SPARK_HOME}/conf/spark-defaults.conf
 
 RUN chmod u+x ./sbin/* && \
     chmod u+x ./bin/*
