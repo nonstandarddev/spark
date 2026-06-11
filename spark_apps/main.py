@@ -6,17 +6,28 @@ Outlines the __general__ approach to building Apache Spark applications.
 * Execution plan
 * Execution trigger (i.e. the trigger for Apache Spark to process)
 """
+import os
 
 from pyspark import (
     SparkConf,
     SparkContext
 )
 
+# ---- 0: Constants ----
+
+SPARK_MASTER: str = os.getenv("SPARK_MASTER_URL", "local")
+SPARK_APP: str = "Sample Script - PySpark"
+
 # ---- 1: Configuration ----
 
 conf = (
     SparkConf()
-    .setAppName("Sample Script - PySpark")
+    .setMaster(
+        SPARK_MASTER
+    )
+    .setAppName(
+        SPARK_APP
+    )
 )
 sc = SparkContext(conf=conf)
 
