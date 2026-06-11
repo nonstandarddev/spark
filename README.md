@@ -14,7 +14,10 @@ Open your browser at `localhost:8080` and you should observe an interface into t
 
 ## Architecture
 
-Broadly speaking, Apache Spark leverages a traditional, intuitive [_master-slave_](https://en.wikipedia.org/wiki/Master%E2%80%93slave_(technology)) architecture,
+Broadly speaking, Apache Spark leverages a traditional, intuitive [_master-slave_](https://en.wikipedia.org/wiki/Master%E2%80%93slave_(technology)) architecture.
+
+Every cluster is equipped with a 'driver' (the brain that devises a plan based on the input model), a 'cluster manager' (the coordinator that allocates 
+resources on each worker node) and one or more workers, responsible for executing tasks,
 
 <p align="center">
     <img src="./figures/architecture.png" alt="Architectural diagram of standalone Spark cluster (driver, manager and worker nodes)" width="600">
@@ -25,22 +28,3 @@ Each of the components outlined above are documented within the following respec
 * `Dockerfile` which prescribes the base image configured with an Apache Spark distribution
 * `compose.yml` which outlines how the base image (above) is adapted into different Apache Spark services (e.g. `master`, `worker` and so on)
 
-
-## Languages
-
-You can use one or more of,
-
-* Java
-* Scala
-* Python
-
-Python tends to be more common as it is easier to 'get up and running' (and negates the need
-for compilation and so forth).
-
-## Spark Software Libraries
-
-* **Spark Core:** Core functionality - most commonly used.
-* **Spark Streaming:** Tools for 'streaming' data from one source to another.
-* **Spark SQL:** API for using ANSI-SQL syntax in Spark.
-* **MLLib:** Used for machine learning functionality.
-* **GraphX:** Used for managing network data and/or graphical data.
