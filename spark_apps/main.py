@@ -16,7 +16,7 @@ from pyspark import (
 # ---- 0: Constants ----
 
 SPARK_MASTER: str = os.getenv("SPARK_MASTER_URL", "local")
-SPARK_APP: str = "Sample Script - PySpark"
+SPARK_APP_NAME: str = "Sample Script - PySpark"
 
 # ---- 1: Configuration ----
 
@@ -26,7 +26,7 @@ conf = (
         SPARK_MASTER
     )
     .setAppName(
-        SPARK_APP
+        SPARK_APP_NAME
     )
 )
 sc = SparkContext(conf=conf)
