@@ -224,7 +224,7 @@ spark_data
 
 # Training scripts
 *.py
-!spark_apps/main.py
-!spark_apps/config.py
+!spark_apps/delta-lake-example*.py
+!spark_apps/spark-example.py
 
 
