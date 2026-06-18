@@ -4,7 +4,7 @@ ARG PYTHON_VERSION=3.11
 
 # ---- 2: Build Tools: Setup ----
 
-FROM python:${PYTHON_VERSION}-bullseye AS spark-image
+FROM python:${PYTHON_VERSION}-bullseye
 
 ARG JDK_VERSION=17
 ARG JDK_SRC=openjdk-${JDK_VERSION}-jdk
@@ -13,8 +13,6 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ${JDK_SRC} \
         rsync \
-        build-essential \
-        software-properties-common \
         ssh && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -22,6 +20,7 @@ RUN apt-get update && \
 # ---- 3: Apache Spark: Setup ----
 
 ARG SPARK_VERSION=4.1.2
+ARG SPARK_MINOR_VERSION=4.1
 ARG SPARK_SRC=https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz
 
 ENV SPARK_HOME=/opt/spark
@@ -46,17 +45,26 @@ COPY config/spark-defaults.conf ${SPARK_HOME}/conf/spark-defaults.conf
 RUN chmod u+x ./sbin/* && \
     chmod u+x ./bin/*
 
-# ---- 4: Python: Setup ----
+# ---- 4: Delta Lake: Setup ----
+
+ARG SCALA_VERSION=2.13
+ARG DELTA_SPARK_VERSION=4.1.0
+ENV DELTA_PACKAGE_VERSION=io.delta:delta-spark_${SPARK_MINOR_VERSION}_${SCALA_VERSION}:${DELTA_SPARK_VERSION}
+
+RUN printf "\nspark.jars.packages ${DELTA_PACKAGE_VERSION}\n" >> ${SPARK_HOME}/conf/spark-defaults.conf
+
+# ---- 5: Python: Setup ----
 
 # NB: we do not need to install `pyspark` as this will be invoked via 
 #     the `spark-submit` binaries stored within ${SPARK_HOME}; however, it is helpful 
 #     to do so for intellisense purposes!
 
-RUN pip3 install \
-    ipython \
+RUN pip3 install --no-cache-dir \
     pandas \
+    pyarrow \
     pyspark==${SPARK_VERSION} \
-    pyarrow
+    delta-spark==${DELTA_SPARK_VERSION} \
+    deltalake
 
 COPY provision.sh .
 
