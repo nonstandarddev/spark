@@ -22,6 +22,7 @@ services:
 
   spark-worker:
     container_name: spark-worker
+    build: .
     image: spark-image
     entrypoint: ["./provision.sh", "worker"]
     depends_on:
@@ -37,6 +38,7 @@ services:
 
   spark-history:
     container_name: spark-history
+    build: .
     image: spark-image
     entrypoint: ["./provision.sh", "history"]
     depends_on:
@@ -50,6 +52,7 @@ services:
   
   spark-developer:
     container_name: spark-developer
+    build: .
     image: spark-image
     entrypoint: ["/bin/bash"]
     stdin_open: true

@@ -41,7 +41,7 @@
                 // Note: this ensures that the '/frontend' folder is tracker in version control
                 "git.openRepositoryInParentFolders": "always",
                 "terminal.integrated.defaultProfile.linux": "bash",
-                "python.defaultInterpreterPath": "/usr/local/bin/python3", 
+                "python.defaultInterpreterPath": "/usr/local/bin/python", 
                 // Note: unnecessary since this is specified in the Dockerfile already
                 "python.terminal.activateEnvironment": false,
 		"python.analysis.typeCheckingMode": "off"
