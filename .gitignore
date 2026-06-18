@@ -221,3 +221,10 @@ __marimo__/
 
 # Data
 spark_data
+
+# Training scripts
+*.py
+!spark_apps/main.py
+!spark_apps/config.py
+
+
