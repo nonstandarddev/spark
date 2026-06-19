@@ -1,4 +1,10 @@
-.PHONY: clean down up submit
+.PHONY: setup rebuild clean down up submit
+
+setup:
+	uv sync --locked
+
+rebuild:
+	docker compose build
 
 clean:
 	docker compose down --volumes --remove-orphans

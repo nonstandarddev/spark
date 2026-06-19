@@ -8,9 +8,17 @@ some kind of cloud-hosted resource (e.g. EC2, Digital Ocean and so forth).
 Getting started is as simple as,
 
 ```sh
-make run
+make up
 ```
 Open your browser at `localhost:8080` and you should observe an interface into the 'master' node of your Apache Spark network (details below). 
+
+You can then *submit* spark workloads using,
+
+```sh
+make submit app=spark-example.py
+```
+
+Where the script is stored within `./spark_apps`.
 
 ## Architecture
 
