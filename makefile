@@ -1,4 +1,4 @@
-.PHONY: setup rebuild clean down up submit
+.PHONY: setup rebuild clean down up scale submit
 
 setup:
 	uv sync --locked
@@ -14,6 +14,9 @@ down:
 
 up:
 	docker compose up -d spark-master spark-worker spark-history
+
+scale:
+	docker compose up -d spark-master spark-worker spark-history --scale spark-worker=$(n)
 
 submit:
 	docker compose run --rm spark-driver /opt/spark/apps/submit.sh "$(app)" $(args)
