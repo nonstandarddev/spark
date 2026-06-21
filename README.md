@@ -1,6 +1,6 @@
-# Apache Spark - Standalone Cluster (via Docker)
+# Apache Spark - Standalone Cluster (via Docker) 🌩️
 
-## Overview
+## Overview 🗺️
 
 This repository outlines a 'minimal' approach for provisioning Apache Spark either on your local machine or, alternatively, on
 some kind of cloud-hosted resource (e.g. EC2, Digital Ocean and so forth).
@@ -20,7 +20,7 @@ make submit app=spark-example.py
 
 Where the script is stored within `./spark_apps`.
 
-## Architecture
+## Architecture 🧰
 
 Broadly speaking, Apache Spark leverages a traditional, intuitive [_master-slave_](https://en.wikipedia.org/wiki/Master%E2%80%93slave_(technology)) architecture.
 
