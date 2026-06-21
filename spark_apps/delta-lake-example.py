@@ -1,3 +1,8 @@
+"""
+Outlines the __general__ approach to utilising Delta Lake via Apache Spark.
+
+This workload must be administered via `spark-submit` e.g. `make submit app=delta-lake-example.py`.
+"""
 from pyspark.sql import (
     SparkSession
 )
@@ -9,7 +14,7 @@ from config import (
 
 # ---- 1: Configuration ----
 
-SPARK_APP_NAME: str = "Delta Lake - Test"
+SPARK_APP_NAME: str = "Delta Lake (via Spark) - Test"
 
 spark = (
   SparkSession.builder
