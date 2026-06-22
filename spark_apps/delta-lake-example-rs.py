@@ -5,9 +5,11 @@ With this workflow,
 
 * You have full control over *how* your data is processed (e.g. Polars, DuckDB and so on). You are 
 simply using Delta Lake as your storage format.
+
 * This is achieved via the Python package `deltalake` which is merely an interface into the 
 underlying Rust bindings for manipulating delta tables - on most standard systems, the pre-compiled
 binary wheels are provisioned via `pip install deltalake` (so you don't need a Rust compiler).
+
 * Once you've installed `deltalake`, this script can be administered wherever you desire with 
 ordinary Python i.e. `python delta-lake-example-rs.py`.
 """

@@ -8,22 +8,30 @@ Some notable ideas,
 
 * `spark.createDataFrame()` -> creates a pyspark DataFrame for downstream manipulation i.e. when you
 call this constructor, you now have to use pyspark syntax to process the DataFrame.
+
 * `ps.DataFrame()` -> creates a pyspark DataFrame, under the hood; *but* this time you can use pandas
 syntax to process this data; operations will be distributed within the cluster.
+
+* The environment variable `PYARROW_IGNORE_TIMEZONE` has to be set because Pandas-on-Spark uses PyArrow
+under the hood to move tabular data between JVM land and pandas land efficiently. Timestamps are the 
+awkward part of this - PyArrow is very strict about timezone metadata whereas Spark's timestamp 
+semantics are historically more 'session timezone'-driven. When we set `PYARROW_IGNORE_TIMEZONE=1`, 
+we are basically saying 'when Arrow is moving timestamp-ish data around, do not apply timezone handling
+that would conflict with Spark's model'.
 """
+import os
+
+os.environ["PYARROW_IGNORE_TIMEZONE"] = "1"
+
 import pyspark
 import pandas as pd
 import pyspark.pandas as ps
-import os
 
 from pyspark.sql import SparkSession
 from config import path_to
 
 
 # ---- 1: Configuration ----
-
-
-os.environ["PYARROW_IGNORE_TIMEZONE"] = "1"
 
 
 spark = (

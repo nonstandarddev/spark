@@ -29,6 +29,7 @@ ENV SPARK_MASTER_PORT=7077
 ENV SPARK_MASTER_URL="spark://${SPARK_MASTER_HOST}:${SPARK_MASTER_PORT}"
 ENV PATH=${SPARK_HOME}/sbin:${SPARK_HOME}/bin:${PATH}
 ENV PYSPARK_PYTHON=python3
+ENV PYARROW_IGNORE_TIMEZONE=1
 
 RUN mkdir -p ${SPARK_HOME}
 
@@ -60,7 +61,7 @@ RUN printf "\nspark.jars.packages ${DELTA_PACKAGE_VERSION}\n" >> ${SPARK_HOME}/c
 #     to do so for intellisense purposes!
 
 RUN pip3 install --no-cache-dir \
-    pandas \
+    "pandas>=2.2,<3" \
     pyarrow \
     pyspark==${SPARK_VERSION} \
     delta-spark==${DELTA_SPARK_VERSION} \
