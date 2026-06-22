@@ -8,6 +8,10 @@ some kind of cloud-hosted resource (e.g. EC2, Digital Ocean and so forth).
 Getting started is as simple as,
 
 ```sh
+# Configure execution environment
+make setup
+
+# Instantiate long-lived cluster services
 make up
 ```
 Open your browser at `localhost:8080` and you should observe an interface into the 'master' node of your Apache Spark network (details below). 

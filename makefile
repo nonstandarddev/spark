@@ -1,6 +1,7 @@
-.PHONY: setup rebuild clean down up scale submit
+.PHONY: setup rebuild clean down up scale submit notebook notebook-logs
 
 setup:
+	pip install uv
 	uv sync --locked
 
 rebuild:
@@ -12,7 +13,7 @@ clean:
 down:
 	docker compose down --remove-orphans
 
-up:
+up: 
 	docker compose up -d spark-master spark-worker spark-history
 
 scale:
@@ -20,3 +21,9 @@ scale:
 
 submit:
 	docker compose run --rm spark-driver /opt/spark/apps/submit.sh "$(app)" $(args)
+
+notebook:
+	docker compose up -d spark-master spark-worker spark-history spark-notebook
+
+notebook-logs:
+	docker compose logs -f spark-notebook

@@ -229,4 +229,6 @@ spark_data/*
 !spark_apps/spark-example.py
 !spark_apps/pandas-example.py
 
-
+# Notebooks
+spark_notebooks/*
+!spark_notebooks/.gitkeep

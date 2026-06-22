@@ -54,18 +54,20 @@ ENV DELTA_PACKAGE_VERSION=io.delta:delta-spark_${SPARK_MINOR_VERSION}_${SCALA_VE
 
 RUN printf "\nspark.jars.packages ${DELTA_PACKAGE_VERSION}\n" >> ${SPARK_HOME}/conf/spark-defaults.conf
 
-# ---- 5: Python: Setup ----
+# ---- 5: Python Environment: Setup ----
 
-# NB: we do not need to install `pyspark` as this will be invoked via 
-#     the `spark-submit` binaries stored within ${SPARK_HOME}; however, it is helpful 
-#     to do so for intellisense purposes!
+ARG PANDAS_VERSION=2.3.3
+ARG PYARROW_VERSION=24.0.0
+ARG DELTALAKE_VERSION=1.6.0
+ARG JUPYTER_VERSION=1.1.1
 
 RUN pip3 install --no-cache-dir \
-    "pandas>=2.2,<3" \
-    pyarrow \
+    pandas==${PANDAS_VERSION} \
+    pyarrow==${PYARROW_VERSION} \
     pyspark==${SPARK_VERSION} \
     delta-spark==${DELTA_SPARK_VERSION} \
-    deltalake
+    deltalake==${DELTALAKE_VERSION} \
+    jupyter==${JUPYTER_VERSION}
 
 COPY provision.sh .
 
