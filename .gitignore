@@ -227,5 +227,6 @@ spark_data/*
 *.py
 !spark_apps/delta-lake-example*.py
 !spark_apps/spark-example.py
+!spark_apps/pandas-example.py
 
 
