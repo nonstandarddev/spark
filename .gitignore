@@ -228,7 +228,6 @@ spark_apps/derby.log
 
 # Training scripts
 *.py
-*.sql
 !spark_apps/delta-lake-example*.py
 !spark_apps/spark-example.py
 !spark_apps/pandas-example.py
