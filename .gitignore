@@ -222,9 +222,13 @@ __marimo__/
 # Data
 spark_data/*
 !spark_data/.gitkeep
+spark_apps/metastore_db/
+spark_apps/derby.log
+
 
 # Training scripts
 *.py
+*.sql
 !spark_apps/delta-lake-example*.py
 !spark_apps/spark-example.py
 !spark_apps/pandas-example.py

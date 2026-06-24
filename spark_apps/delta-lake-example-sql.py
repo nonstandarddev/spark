@@ -18,9 +18,14 @@ spark = (
 
 spark.sql(
     """
-    -- SQL
-    CREATE TABLE IF NOT EXISTS foo (
-        bar LONG,
+    CREATE DATABASE IF NOT EXISTS sandbox
+    """
+)
+
+spark.sql(
+    """
+    CREATE TABLE IF NOT EXISTS sandbox.foo (
+        bar INT,
         baz STRING,
         bam STRING
     ) USING DELTA;
