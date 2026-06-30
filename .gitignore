@@ -231,6 +231,7 @@ spark_apps/derby.log
 !spark_apps/delta-lake-example*.py
 !spark_apps/spark-example.py
 !spark_apps/pandas-example.py
+!spark_apps/spark-broadcasting-example.py
 
 # Notebooks
 spark_notebooks/*
